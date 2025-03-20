@@ -22,9 +22,14 @@ if(cluster.isPrimary){
     const app = express();
     app.use(express.json());
     const PORT = 3000;
-    app.get("/sum", (req, res) => {
+    app.get("/", (req, res) => {
+        
+        res.send(`Hello World from process ${process.pid}`);
+        console.log("pinged /");
+    });
+    app.get("/sum/:n", (req, res) => {
         let sum = 0;
-        let n = req.body.n ;
+        let n = parseInt(req.params.n) ;
         if(n > 500) n = 500 ;
         for(let i = 0; i < n; i++){
             sum += i;
